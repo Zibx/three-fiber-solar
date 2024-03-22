@@ -7,8 +7,11 @@ export const Earth = (props: PlanetProps) => {
                 weight={1} radius={6371}
                 cycle={365.24}
                 name={props.name}
+                setCameraTarget={props.setCameraTarget}
+
                 moons={[
                     <Planet color={'#777777'}
+
                             key={'Moon'}
                             distanceMin={10} distanceMax={10}
                             weight={1} radius={631}

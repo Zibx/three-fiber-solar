@@ -9,6 +9,8 @@ export const Uranus = (props: PlanetProps) => {
                 rings={false}
                 cycle={84*365}
                 name={props.name}
+                setCameraTarget={props.setCameraTarget}
+
         />
     );
 };

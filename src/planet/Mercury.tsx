@@ -8,6 +8,7 @@ export const Mercury = (props: PlanetProps) => {
                 weight={0.055}
                 cycle={88}
                 name={props.name}
+                setCameraTarget={props.setCameraTarget}
 
         />
     );

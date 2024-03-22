@@ -15,16 +15,16 @@ export const Sun = (props: PlanetProps) => {
     #define TAU 6.28318530718
     void main() {
   vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-  vec4 viewPosition = viewMatrix * modelPosition;
-  vec4 projectedPosition = projectionMatrix * viewPosition;
-  vUv = uv;
+
+  vUv = modelPosition.xy/6.28*2.0;
   
   
-    float time = iTime * .005+23.0;
+    float time = iTime * .015+23.0;
     // uv should be the 0-1 uv of texture...
 
 
-    vec2 p = mod(vUv*TAU*2.0, TAU)-250.0;
+
+    vec2 p = mod(vUv.xy*TAU*2.0, TAU)-250.0;
 
 vec2 i = vec2(p);
 float c = 1.0;
@@ -41,10 +41,13 @@ for (int n = 0; n < MAX_ITER; n++)
     c-=0.7;
 }
   
+
   
+  modelPosition.x *= 1.0+(c/30.0);
+  modelPosition.y *= 1.0+(c/30.0);
+  vec4 viewPosition = viewMatrix * modelPosition;
+  vec4 projectedPosition = projectionMatrix * viewPosition;  
   gl_Position = projectedPosition;
-  gl_Position.x *= 1.0+(c/30.0);
-  gl_Position.y *= 1.0+(c/30.0);
 }
 
 `;
@@ -67,7 +70,7 @@ void main() {
   
   
   
-  float time = iTime * .005+23.0;
+  float time = iTime * .015+23.0;
     // uv should be the 0-1 uv of texture...
 vec2 uv = gl_FragCoord.xy / iResolution.xy*100.0;
 
@@ -133,6 +136,8 @@ if(sin(c*time/30.0)<-0.4){
                 emissive={'#FFFF00'}
                 noShadow={true}
                 name={props.name}
+                setCameraTarget={props.setCameraTarget}
+
                 moons={[
                     <Planet color={'#FFFF00'}
                             distanceMin={0} distanceMax={0}

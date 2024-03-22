@@ -8,6 +8,8 @@ export const Mars = (props: PlanetProps) => {
                 radius={3390}
                 cycle={687}
                 name={props.name}
+                setCameraTarget={props.setCameraTarget}
+
         />
     );
 };

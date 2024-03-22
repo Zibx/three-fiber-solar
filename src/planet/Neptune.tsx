@@ -9,6 +9,7 @@ export const Neptune = (props: PlanetProps) => {
                 rings={false}
                 cycle={165*365}
                 name={props.name}
+                setCameraTarget={props.setCameraTarget}
 
         />
     );

@@ -3,7 +3,7 @@ import * as three from "three";
 import {ExtendedColors, NodeProps, Object3DNode, Overwrite, useFrame} from "@react-three/fiber";
 import { CSSProperties } from "react";
 import {Ellipse} from "../Ellipse";
-import {ShaderMaterial} from "three";
+import {Mesh, ShaderMaterial} from "three";
 import {animated, useSpring} from "@react-spring/three";
 
 export type PlanetProps = {
@@ -20,8 +20,9 @@ export type PlanetProps = {
     noShadow?: boolean,
     name?: string,
     material?: JSX.Element,
-    interactive? :boolean
-}
+    interactive? :boolean,
+    setCameraTarget?: (target: three.Mesh|null|undefined) => void
+};
 export const Planet = function(cfg: PlanetProps){
     const sphere = useRef<three.Mesh|null>(null);
     useFrame((state, delta) => {
@@ -41,8 +42,10 @@ export const Planet = function(cfg: PlanetProps){
 
 
     return (<><animated.mesh scale={scale} ref={sphere} position={[cfg.distanceMin/30,0,0]} onClick={(e)=>{
-        cfg.interactive !== false  && console.log(cfg.name)
-
+        if(cfg.interactive !== false) {
+            console.log(cfg.name)
+            cfg.setCameraTarget && cfg.setCameraTarget(sphere.current)
+        }
     }}
                              onPointerEnter={()=>cfg.interactive !== false  && setActive(true)}
                              onPointerLeave={()=>cfg.interactive !== false && setActive(false)}

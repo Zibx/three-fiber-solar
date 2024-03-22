@@ -9,6 +9,7 @@ export const Pluto = (props: PlanetProps) => {
                 rings={false}
                 cycle={248*365}
                 name={props.name}
+                setCameraTarget={props.setCameraTarget}
 
         />
     );
