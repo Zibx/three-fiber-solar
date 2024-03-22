@@ -1,6 +1,7 @@
-import React, {useMemo, useRef, useState} from "react";
+import React, {Ref, useMemo, useRef, useState} from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {Box, OrbitControls, OrbitControlsProps} from "@react-three/drei";
+import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import "./styles.css";
 import {DoubleSide, Mesh, MeshStandardMaterial, Vector3} from "three";
 import * as SkyObjects from './SkyObjects';
@@ -8,24 +9,26 @@ import * as SkyObjects from './SkyObjects';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import {FrameLimiter} from "./FrameLimiter";
 import {Saturn} from "./SkyObjects";
-import {Planet} from "./planet/Base";
+import {Planet, SkyObjectProps} from "./planet/Base";
 import {ExtendedMaterial} from "./shader/ExtendedMaterial.react";
 import {SaturnRingShader} from "./shader/SaturnRingShader";
+import {ForwardProps} from "@react-spring/three";
 
+type Orbitar = {
+    target: Vector3
+}
 const Scene = () => {
     let vec = new Vector3().randomDirection().multiplyScalar(0.001);
     const scene = useRef<THREE.Group>(null);
 
 
     FrameLimiter({fps: 20});
-    // @ts-ignore
-    const orbitRef = useRef<OrbitControls|null>(null);
+    const orbitRef = useRef<OrbitControlsImpl>(null);
 
     useFrame(() => {
         const acc = new Vector3().randomDirection().multiplyScalar(0.001);
-        //@ts-ignore
 
-        if(cameraTarget){
+        if(cameraTarget && orbitRef.current){
             orbitRef.current.target = orbitRef.current.target.lerp(cameraTarget.position,0.05);
         }else{
 
@@ -39,24 +42,17 @@ const Scene = () => {
 
     const [cameraTarget, setCameraTarget] = useState<Mesh|null>();
 
-    const objects = useMemo<React.Component[]>(()=>{
-        const objects: React.Component[] = [];
-        for(let key in SkyObjects){
-            //@ts-ignore
-            objects.push(React.createElement(SkyObjects[key], {key, name: key, setCameraTarget: setCameraTarget}));
-        }
+    const objects = useMemo<React.ReactNode[]>(()=>{
+        const objects: React.ReactNode[] = [];
+        Object.keys(SkyObjects)
+            .forEach(key =>{
+                const Ctor = SkyObjects[key as keyof typeof SkyObjects];
+                const skyObject = <Ctor key={key} name={key} setCameraTarget={setCameraTarget}/>
+                objects.push(skyObject);
+            });
+
         return objects;
     }, []);
-
-    /*
-    ,
-                                  <mesh position={[1,0,0]} scale={[5,5,1]} rotation={[Math.PI/3,0,1]}>
-                                      <planeGeometry />
-                                      <meshStandardMaterial side={DoubleSide} color={[1.0,0.0,0.4]} opacity={0.5} transparent={true} alphaTest={0.5}/>
-                                  </mesh>
-     */
-
-
 
     return (
         <>

@@ -1,4 +1,4 @@
-import {Planet, PlanetProps} from "./Base";
+import {Planet, PlanetProps, SkyObjectProps} from "./Base";
 import {Plane} from "@react-three/drei";
 import {DoubleSide, MeshStandardMaterial} from "three";
 import {JupiterShader} from "../shader/JupiterShader";
@@ -6,7 +6,7 @@ import {ExtendedMaterial} from "../shader/ExtendedMaterial.react";
 import {SaturnRingShader} from "../shader/SaturnRingShader";
 
 
-export const Saturn = (props: PlanetProps) => {
+export const Saturn = (props: SkyObjectProps) => {
     return (
         <Planet color={'#b08f36'}
                 distanceMin={1350} distanceMax={1350}

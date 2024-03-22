@@ -1,6 +1,6 @@
-import {Planet, PlanetProps} from "./Base";
+import {Planet, PlanetProps, SkyObjectProps} from "./Base";
 
-export const Venus = (props: PlanetProps) => {
+export const Venus = (props: SkyObjectProps) => {
     return (
         <Planet color={'#e6e6e6'}
                 distanceMin={107} distanceMax={109}

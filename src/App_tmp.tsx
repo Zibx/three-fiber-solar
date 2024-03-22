@@ -64,8 +64,7 @@ function Lines({ dash, count, colors, radius = 50, rand = THREE.MathUtils.randFl
 }
 
 function Fatline({ curve, width, color, speed, dash }: FatLineProps) {
-    const ref = useRef<three.Mesh|null>(null)
-    // @ts-ignore
+    const ref = useRef<three.Mesh<MeshLineGeometry,MeshLineMaterial>|null>(null)
     useFrame((state, delta) => (ref!.current!.material.dashOffset -= (delta * speed) / 10))
     return (
         <mesh ref={ref}>

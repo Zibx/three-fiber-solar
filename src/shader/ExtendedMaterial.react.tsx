@@ -3,6 +3,7 @@ import {ForwardedRef, forwardRef, useMemo, useRef} from "react";
 //@ts-ignore
 import { ExtendedMaterial as ImplExtendedMaterial } from "three-extended-material";
 import {IUniform} from "three/src/Three";
+import {ShaderMaterial} from "three";
 
 export interface TypedIUniform<TValue = any> extends IUniform {
     value: TValue;
@@ -50,12 +51,12 @@ export class MaterialExtension {
 const tune = function(materialProps: ExtendedMaterialProps): ExtendedMaterialProps{
 
     const proto = Object.getPrototypeOf(materialProps);
-    //@ts-ignore
+
     const originalOnBeforeCompile = proto.onBeforeCompile;
 
 
-    //@ts-ignore
-    proto.onBeforeCompile = function(shader){
+
+    proto.onBeforeCompile = function(shader:any){
         originalOnBeforeCompile.apply(this, arguments);
         shader.vertexUvs  = true;
     };

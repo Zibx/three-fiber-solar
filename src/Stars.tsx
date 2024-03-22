@@ -6,6 +6,7 @@ import {extend, useFrame, Object3DNode} from "@react-three/fiber";
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline'
 import {EllipseCurve} from "three";
 import * as three from "three";
+import {SkyObjectProps} from "./planet/Base";
 
 extend({ MeshLineGeometry, MeshLineMaterial })
 
@@ -16,7 +17,7 @@ declare module '@react-three/fiber' {
     }
 }
 
-export const Stars = function() {
+export const Stars = function(props: SkyObjectProps) {
 
     return (
         <Lines dash={0.994} count={500} radius={50} colors={['#be91f8', '#f5df89', '#d3f69f', '#b5f4f8']} />

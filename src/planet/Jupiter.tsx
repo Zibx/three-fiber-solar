@@ -1,4 +1,4 @@
-import {Planet, PlanetProps} from "./Base";
+import {Planet, PlanetProps, SkyObjectProps} from "./Base";
 import {useMemo} from "react";
 import {MeshStandardMaterial, Vector2} from "three";
 import { ExtendedMaterial } from "../shader/ExtendedMaterial.react";
@@ -6,7 +6,7 @@ import {extend, Object3DNode} from "@react-three/fiber";
 import {Checkerboard} from "../shader/Checkerboard";
 import {JupiterShader} from "../shader/JupiterShader";
 
-export const Jupiter = (props: PlanetProps) => {
+export const Jupiter = (props: SkyObjectProps) => {
     return (
         <Planet color={'#e1a27a'}
                 distanceMin={740} distanceMax={816}

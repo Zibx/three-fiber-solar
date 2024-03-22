@@ -6,13 +6,18 @@ import {Ellipse} from "../Ellipse";
 import {Mesh, ShaderMaterial} from "three";
 import {animated, useSpring} from "@react-spring/three";
 
+export type SkyObjectProps = {
+    name?: string,
+    setCameraTarget?: (target: three.Mesh|null|undefined) => void,
+    key?: string
+};
 export type PlanetProps = {
     weight?: number,
     radius: number,
     distanceMin: number,
     distanceMax: number,
     cycle: number,
-    color: CSSProperties["color"],
+    color?: CSSProperties["color"],
     emissive?: CSSProperties["color"],
     rings?: boolean,
     moons?: JSX.Element[],
@@ -21,7 +26,8 @@ export type PlanetProps = {
     name?: string,
     material?: JSX.Element,
     interactive? :boolean,
-    setCameraTarget?: (target: three.Mesh|null|undefined) => void
+    setCameraTarget?: (target: three.Mesh|null|undefined) => void,
+    key?: string
 };
 export const Planet = function(cfg: PlanetProps){
     const sphere = useRef<three.Mesh|null>(null);

@@ -1,9 +1,9 @@
-import {Planet, PlanetProps} from "./Base";
+import {Planet, PlanetProps, SkyObjectProps} from "./Base";
 import {Vector2} from "three";
 import {useMemo} from "react";
 
 //696340
-export const Sun = (props: PlanetProps) => {
+export const Sun = (props: SkyObjectProps) => {
 
     const shader = useMemo(function(){
 
@@ -145,7 +145,6 @@ if(sin(c*time/30.0)<-0.4){
                             cycle={100000000}
                             noShadow={true}
                             interactive={false}
-                        // @ts-ignore
                             material={<shaderMaterial
                                 fragmentShader={shader.fragmentShader}
                                 vertexShader={shader.vertexShader}
